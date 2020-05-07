@@ -1,0 +1,48 @@
+﻿@page
+@model YanLoadingTracker.Pages.Loads.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Load[0].IdDisciplineNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Load[0].IdTeacherNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Load[0].IdTypeNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Load) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdDisciplineNavigation.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdTeacherNavigation.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdTypeNavigation.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

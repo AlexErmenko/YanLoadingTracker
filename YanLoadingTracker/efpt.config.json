@@ -1,0 +1,47 @@
+﻿{
+   "ContextClassName": "LoadingTracker",
+   "ContextNamespace": "Models",
+   "DefaultDacpacSchema": null,
+   "DoNotCombineNamespace": false,
+   "IdReplace": false,
+   "IncludeConnectionString": true,
+   "ModelNamespace": "Models",
+   "OutputContextPath": null,
+   "OutputPath": null,
+   "ProjectRootNamespace": "YanLoadingTracker",
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Course]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Department]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Discipline]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Load]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[OccupationTypes]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Teacher]"
+      }
+   ],
+   "UseDatabaseNames": false,
+   "UseDbContextSplitting": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseSpatial": false
+}
