@@ -1,58 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+
+
 using YanLoadingTracker.Models;
 
 namespace YanLoadingTracker.Pages.Departments
 {
-    public class DeleteModel : PageModel
+  public class DeleteModel : PageModel
+  {
+    private readonly LoadingTracker context;
+
+    [BindProperty]
+    public Department Department { get; set; }
+
+    public DeleteModel(LoadingTracker context) { this.context = context; }
+
+    public async Task<IActionResult> OnGetAsync(int? id)
     {
-        private readonly YanLoadingTracker.Models.LoadingTracker _context;
+      if (id == null) return NotFound();
 
-        public DeleteModel(YanLoadingTracker.Models.LoadingTracker context)
-        {
-            _context = context;
-        }
+      Department = await context.Departments.FirstOrDefaultAsync(m => m.Id == id);
 
-        [BindProperty]
-        public Department Department { get; set; }
-
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Department = await _context.Departments.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (Department == null)
-            {
-                return NotFound();
-            }
-            return Page();
-        }
-
-        public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Department = await _context.Departments.FindAsync(id);
-
-            if (Department != null)
-            {
-                _context.Departments.Remove(Department);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
-        }
+      if (Department == null) return NotFound();
+      return Page();
     }
+
+    public async Task<IActionResult> OnPostAsync(int? id)
+    {
+      if (id == null) return NotFound();
+
+      Department = await context.Departments.FindAsync(id);
+
+      if (Department != null)
+      {
+        context.Departments.Remove(Department);
+        await context.SaveChangesAsync();
+      }
+
+      return RedirectToPage("./Index");
+    }
+  }
 }

@@ -9,7 +9,7 @@
 
 <div>
     <h4>Discipline</h4>
-    <hr />
+    <hr/>
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Discipline.Name)
@@ -26,6 +26,9 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Discipline.Id">Edit</a> |
+    <a asp-page="./Edit"
+       asp-route-id="@Model.Discipline.Id">
+        Edit
+    </a> |
     <a asp-page="./Index">Back to List</a>
 </div>

@@ -1,40 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+
+
 using YanLoadingTracker.Models;
 
 namespace YanLoadingTracker.Pages.Disciplines
 {
-    public class DetailsModel : PageModel
+  public class DetailsModel : PageModel
+  {
+    private readonly LoadingTracker context;
+
+    public Discipline Discipline { get; set; }
+
+    public DetailsModel(LoadingTracker context) { this.context = context; }
+
+    public async Task<IActionResult> OnGetAsync(int? id)
     {
-        private readonly YanLoadingTracker.Models.LoadingTracker _context;
+      if (id == null) return NotFound();
 
-        public DetailsModel(YanLoadingTracker.Models.LoadingTracker context)
-        {
-            _context = context;
-        }
+      Discipline = await context.Disciplines.Include(d => d.IdCourseNavigation).FirstOrDefaultAsync(m => m.Id == id);
 
-        public Discipline Discipline { get; set; }
-
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Discipline = await _context.Disciplines
-                .Include(d => d.IdCourseNavigation).FirstOrDefaultAsync(m => m.Id == id);
-
-            if (Discipline == null)
-            {
-                return NotFound();
-            }
-            return Page();
-        }
+      if (Discipline == null) return NotFound();
+      return Page();
     }
+  }
 }

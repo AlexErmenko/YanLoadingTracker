@@ -1,17 +1,24 @@
 ﻿@page
+@using YanLoadingTracker.Models
 @model YanLoadingTracker.Pages.Loads.IndexModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+
+<h1>Нагрузка</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a class="btn btn-block btn-outline-success"
+       asp-page="Create">
+        Создать новую запись
+    </a>
 </p>
-<table class="table">
-    <thead>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover text-center ">
+        <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Load[0].IdDisciplineNavigation)
@@ -22,27 +29,58 @@
             <th>
                 @Html.DisplayNameFor(model => model.Load[0].IdTypeNavigation)
             </th>
-            <th></th>
+            <th colspan="3"></th>
         </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Load) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdDisciplineNavigation.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdTeacherNavigation.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdTypeNavigation.Name)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        @foreach (Load item in Model.Load)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdDisciplineNavigation.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdTeacherNavigation.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdTypeNavigation.Name)
+                </td>
+
+                <td>
+                    <a asp-page="./edit1"
+                       asp-route-id="@item.IdTeacher"
+                       asp-route-type="@item.IdType"
+                       asp-route-d="@item.IdDiscipline"
+                       class="btn btn-outline-warning btn-block">
+                        Редактировать
+                    </a>
+                </td>
+
+                <td>
+                    <a asp-page="./Details"
+                       asp-route-id="@item.IdTeacher"
+                       asp-route-type="@item.IdType"
+                       asp-route-d="@item.IdDiscipline"
+                       class="btn btn-outline-info btn-block">
+                        Детали
+                    </a>
+                </td>
+                <td>
+                    <a asp-page="./Delete"
+                       class="btn btn-outline-danger btn-block"
+                       asp-route-id="@item.IdTeacher"
+                       asp-route-type="@item.IdType"
+                       asp-route-d="@item.IdDiscipline">
+                        Удалить
+                    </a>
+                </td>
+
+                @* @Html.ActionLink("edit1", "Edit", new { item.IdTeacher, item.IdDiscipline, item.IdType }) *@
+                @* @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) | @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) *@
+
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

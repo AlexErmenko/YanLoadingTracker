@@ -1,29 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+
+
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+
+
 using YanLoadingTracker.Models;
 
 namespace YanLoadingTracker.Pages.Teachers
 {
-    public class IndexModel : PageModel
+  public class IndexModel : PageModel
+  {
+    private readonly LoadingTracker context;
+
+    public IList<Teacher> Teacher { get; set; }
+
+    public IndexModel(LoadingTracker context) { this.context = context; }
+
+    public async Task OnGetAsync()
     {
-        private readonly YanLoadingTracker.Models.LoadingTracker _context;
-
-        public IndexModel(YanLoadingTracker.Models.LoadingTracker context)
-        {
-            _context = context;
-        }
-
-        public IList<Teacher> Teacher { get;set; }
-
-        public async Task OnGetAsync()
-        {
-            Teacher = await _context.Teachers
-                .Include(t => t.IdDepartmentNavigation).ToListAsync();
-        }
+      Teacher = await context.Teachers.Include(t => t.IdDepartmentNavigation).ToListAsync();
     }
+  }
 }

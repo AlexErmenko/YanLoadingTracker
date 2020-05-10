@@ -1,42 +1,70 @@
 ﻿@page
+@using YanLoadingTracker.Models
 @model YanLoadingTracker.Pages.Departments.IndexModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Кафедры</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a class="btn-outline-success btn-block btn  "
+       asp-page="Create">
+        Создать новую запись
+    </a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover text-center">
+        <thead class="thead-dark">
+        <tr >
             <th>
                 @Html.DisplayNameFor(model => model.Department[0].Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Department[0].Number)
             </th>
-            <th></th>
+            <th colspan="3"></th>
         </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Department) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Number)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        </thead>
+
+        <tbody>
+        @foreach (Department item in Model.Department)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+
+                <td>
+                    <a class="btn btn-outline-warning btn-block"
+                       asp-page="./Edit"
+                       asp-route-id="@item.Id">
+                        Редактировать
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-outline-info btn-block"
+                       asp-page="./Details"
+                       asp-route-id="@item.Id">
+                        Детали
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-outline-danger btn-block"
+                       asp-page="./Delete"
+                       asp-route-id="@item.Id">
+                        Удалить
+                    </a>
+
+
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
