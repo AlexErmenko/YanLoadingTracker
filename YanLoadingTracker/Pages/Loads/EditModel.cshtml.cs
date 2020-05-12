@@ -21,24 +21,25 @@ namespace YanLoadingTracker.Pages.Loads
     public Load Load { get; set; }
 
 
-    [BindProperty]
-    public int IdDisc { get; set; }
-
-    [BindProperty]
-    public int IdType { get; set; }
+    // [BindProperty]
+    // public int IdDisc { get; set; }
+    //
+    // [BindProperty]
+    // public int IdType { get; set; }
 
     public EditModel(LoadingTracker context) { this.context = context; }
 
 
-    public async Task<IActionResult> OnGetAsync(int id, int type, int d)
+    public async Task<IActionResult> OnGetAsync(int IdTeacher, int IdType, int IdDiscipline)
     {
       Load = await context.Loads.Include(l => l.IdDisciplineNavigation)
-                           .Include(l => l.IdTeacherNavigation)
-                           .Include(l => l.IdTypeNavigation)
-                           .FirstOrDefaultAsync(m => m.IdTeacher == id);
+                          .Include(l => l.IdTeacherNavigation)
+                          .Include(l => l.IdTypeNavigation)
+                          .FirstOrDefaultAsync(m => m.IdTeacher == IdTeacher);
 
-      IdDisc = d;
-      IdType = type;
+
+      // IdDisc = IdDiscipline;
+      // IdType = IdType;
 
       if (Load == null) return NotFound();
 
@@ -60,18 +61,15 @@ namespace YanLoadingTracker.Pages.Loads
 
 
       Load load = await context.Loads.Include(l => l.IdDisciplineNavigation)
-                                .Include(l => l.IdTeacherNavigation)
-                                .Include(l => l.IdTypeNavigation)
-                                .FirstOrDefaultAsync(m => m.IdTeacher    == Load.IdTeacher && m.IdType == IdType &&
-                                                          m.IdDiscipline == IdDisc) ;
+                               .Include(l => l.IdTeacherNavigation)
+                               .Include(l => l.IdTypeNavigation)
+                               .FirstOrDefaultAsync(m => m.IdTeacher    == Load.IdTeacher && m.IdType == Load.IdType &&
+                                                         m.IdDiscipline == Load.IdDiscipline) ;
       context.Loads.Remove(load);
       await context.SaveChangesAsync();
 
 
       context.Add(new Load { IdType = Load.IdType, IdTeacher = Load.IdTeacher, IdDiscipline = Load.IdDiscipline });
-
-
-      //_context.Attach(Load).State = EntityState.Modified;
 
       try { await context.SaveChangesAsync(); }
       catch (DbUpdateConcurrencyException)

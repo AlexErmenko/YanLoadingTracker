@@ -32,6 +32,12 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |И
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./EditModel"
+       asp-route-id="@Model.Load.IdTeacher"
+       asp-route-type="@Model.Load.IdType"
+       asp-route-d="@Model.Load.IdDiscipline"
+       class="btn btn-outline-warning btn-block">
+        Редактировать
+    </a>
+    <a asp-page="./Index">Вернутся назад к списку</a>
 </div>

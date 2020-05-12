@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 
 
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +16,7 @@ namespace YanLoadingTracker.Pages.Loads
 
     public IList<Load> Load { get; set; }
 
+
     public IndexModel(LoadingTracker context) { this.context = context; }
 
     public async Task OnGetAsync()
@@ -26,7 +26,5 @@ namespace YanLoadingTracker.Pages.Loads
                           .Include(l => l.IdTypeNavigation)
                           .ToListAsync();
     }
-
-    
   }
 }

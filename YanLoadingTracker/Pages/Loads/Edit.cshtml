@@ -2,12 +2,12 @@
 @model YanLoadingTracker.Pages.Loads.EditModel
 
 @{
-    ViewData["Title"] = "edit1";
+    ViewData["Title"] = "Редактирование";
 }
 
-<h1>edit1</h1>
+<h1>Редактирование</h1>
 
-<h4>Load</h4>
+<h4>Нагрузка</h4>
 <hr/>
 <div class="row">
     <div class="col-md-4">
@@ -16,12 +16,12 @@
                  class="text-danger">
             </div>
             <input type="hidden"
-                   asp-for="Load.IdTeacher"/>
+                   asp-for="@Model.Load.IdTeacher"/>
             <input type="hidden"
-                   asp-for="@Model.IdDisc"/>
+                   asp-for="@Model.Load.IdDiscipline"/>
 
             <input type="hidden"
-                   asp-for="@Model.IdType"/>
+                   asp-for="@Model.Load.IdType"/>
 
 
             <div class="form-group">
